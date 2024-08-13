@@ -1,3 +1,6 @@
+/**
+ * Represents a student with basic information.
+ */
 interface Student {
   firstName: string;
   lastName: string;
@@ -5,45 +8,59 @@ interface Student {
   location: string;
 }
 
-// Create two students based on the interface
+/**
+ * Create two students and add them to the studentsList array.
+ */
 const student1: Student = {
   firstName: "John",
   lastName: "Doe",
-  age: 20,
-  location: "New York",
+  age: 21,
+  location: "New York"
 };
 
 const student2: Student = {
   firstName: "Jane",
   lastName: "Smith",
   age: 22,
-  location: "California",
+  location: "Los Angeles"
 };
 
-// Create an array containing the two students
+// Using an array type to define the list of students
 const studentsList: Student[] = [student1, student2];
-// Function to render the table
-function renderTable(): void {
-  // Create the table element
-  const table = document.createElement("table");
+// const studentsList: Array<Student> = [student1, student2];
 
-  // Iterate over each student in the studentsList
-  studentsList.forEach((student) => {
-    // Create a new row for each student
-    const row = table.insertRow();
+/**
+ * Create the table and append rows for each student.
+ */
 
-    // Create cells for firstName and location
-    const firstNameCell = row.insertCell(0);
-    const locationCell = row.insertCell(1);
+// const body = document.getElementsByTagName("body") as HTMLBodyElement;
 
-    // Set the text content of the cells
-    firstNameCell.textContent = student.firstName;
-    locationCell.textContent = student.location;
-  });
+// Type assertion to specify that document.body is an HTMLBodyElement
+const body = document.body as HTMLBodyElement;
 
-  // Append the table to the body of the document
-  document.body.appendChild(table);
-}
+// Creating the table and tbody elements with type annotations
+const table: HTMLTableElement = document.createElement("table");
+const tbody: HTMLTableSectionElement = document.createElement("tbody");
 
-// Call the renderTable function to display the table on the webpage
-renderTable();
+// Iterating over the studentsList array to create rows and cells
+studentsList.forEach(student => {
+  const row: HTMLTableRowElement = document.createElement("tr");
+
+  // Creating cells for firstName and location
+  const firstNameCell: HTMLTableCellElement = document.createElement("td");
+  firstNameCell.textContent = student.firstName;
+
+  const locationCell: HTMLTableCellElement = document.createElement("td");
+  locationCell.textContent = student.location;
+
+  // Appending cells to the row
+  row.appendChild(firstNameCell);
+  row.appendChild(locationCell);
+
+  // Appending the row to the tbody
+  tbody.appendChild(row);
+});
+
+// Appending the tbody to the table and the table to the body
+table.appendChild(tbody);
+body.appendChild(table);
